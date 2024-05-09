@@ -1,5 +1,3 @@
-// const secrets = require("./secretElements");
-const apiKey = ;
 const submitIcon = document.querySelector("#submit-icon");
 const inputElement = document.querySelector("input");
 const imageSection = document.querySelector('.images-section')
@@ -12,7 +10,7 @@ const getImages = async () => {
             "Content-Type": "application/json"
         },
         body: JSON.stringify ({
-            model: "dall-e-3",
+            model: "dall-e-2",
             prompt: inputElement.value,
             n: 4,
             size: "1024x1024"
@@ -21,14 +19,14 @@ const getImages = async () => {
 
     try {
         const response = await fetch("https://api.openai.com/v1/images/generations", options)
-        const data = response.json()
+        const data = await response.json()
         console.log(data)
 
         data?.data.forEach(imageObject => {
             const imageContainer = document.createElement('div')
-            imageContainer.classList.add('image-container')
+            imageContainer.classList.add('images-container')
             const imageElement = document.createElement('img')
-            imageElement.setAttribute('scr', imageObject.url)
+            imageElement.setAttribute('src', imageObject.url)
             imageContainer.append(imageElement)
             imageSection.append(imageContainer)
         })
